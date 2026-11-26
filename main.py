@@ -35,6 +35,11 @@ def main() -> int:
     if not text.strip():
         print("entry must not be only whitespace", file=sys.stderr)
         return 1
+    # The entry is a code comment, so it must read as one: it opens with //
+    # and says something a developer would actually leave above fragile code.
+    if not text.startswith("//"):
+        print("entry must read as a code comment (start with //)", file=sys.stderr)
+        return 1
 
     written = None
     for path in OUTPUT_PATHS:
